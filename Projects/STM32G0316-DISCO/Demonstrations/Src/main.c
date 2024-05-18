@@ -151,7 +151,23 @@ int main(void)
 
   /* RTC config */
   RtcConfig();
-  
+
+
+  /* HFR */
+  while(1)
+  {
+    static unsigned char cnt;
+
+    BSP_LED_On(LED2);
+    HAL_Delay(cnt);
+
+    BSP_LED_Off(LED2);
+    HAL_Delay(cnt);
+
+    cnt+=20;
+  }
+
+
   /* Different execution depending on boot reason */
   ExecuteBootReason(demomode);
 
@@ -460,7 +476,7 @@ static void LedBlinkSchemeOn(DemoSubMode_t DemoSubMode)
   counter = (LedOnPeriod * (LSI_VALUE >> 2)) / 1000;
 
   BSP_LED_On(LED2);
-  HAL_RTCEx_SetWakeUpTimer_IT(&RtcHandle, counter, RTC_WAKEUPCLOCK_RTCCLK_DIV2);
+  HAL_RTCEx_SetWakeUpTimer_IT(&RtcHandle, counter / 20, RTC_WAKEUPCLOCK_RTCCLK_DIV2);
 }
 
 /**
