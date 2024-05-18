@@ -1,0 +1,3 @@
+/local/home/frq08990/views/STM32CubeG0/Projects/STM32G0C1E-EV/Applications/OpenBootloader/STM32CubeIDE/build/release/build/CMakeFiles/rebuild_cache.dir
+/local/home/frq08990/views/STM32CubeG0/Projects/STM32G0C1E-EV/Applications/OpenBootloader/STM32CubeIDE/build/release/build/CMakeFiles/edit_cache.dir
+/local/home/frq08990/views/STM32CubeG0/Projects/STM32G0C1E-EV/Applications/OpenBootloader/STM32CubeIDE/build/release/build/CMakeFiles/OpenBootloader.dir
