@@ -49,6 +49,7 @@ extern "C" {
 #define HAL_CRC_MODULE_ENABLED
 #define HAL_CRYP_MODULE_ENABLED
 #define HAL_DAC_MODULE_ENABLED
+#define HAL_DMA_MODULE_ENABLED
 #define HAL_EXTI_MODULE_ENABLED
 #define HAL_FLASH_MODULE_ENABLED
 #define HAL_GPIO_MODULE_ENABLED
@@ -64,12 +65,9 @@ extern "C" {
 #define HAL_SMBUS_MODULE_ENABLED
 #define HAL_SPI_MODULE_ENABLED
 #define HAL_TIM_MODULE_ENABLED
-#define HAL_WWDG_MODULE_ENABLED */
-
-#define HAL_DMA_MODULE_ENABLED
 #define HAL_UART_MODULE_ENABLED
 #define HAL_USART_MODULE_ENABLED
-
+#define HAL_WWDG_MODULE_ENABLED */
 
 /* ########################## Register Callbacks selection ############################## */
 /**
