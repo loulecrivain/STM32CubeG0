@@ -22,6 +22,7 @@
 #include "stm32g0xx_ll_crs.h"
 #include "main.h"
 #include "app_openbootloader.h"
+#include "stm32g0316_discovery.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -29,6 +30,20 @@
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+
+void test_point(unsigned int nb)
+{
+  unsigned int i;
+
+  for (i = 0; i < nb; i++) {
+    BSP_LED_On(LED2);
+    HAL_Delay(200);
+
+    BSP_LED_Off(LED2);
+    HAL_Delay(200);
+  }
+  HAL_Delay(1000);
+}
 
 /**
   * @brief  The application entry point.
@@ -49,6 +64,11 @@ int main(void)
 
   /* Configure the system clock */
   SystemClock_Config();
+
+  /* LED init */
+  BSP_LED_Init(LED2);
+
+  test_point(1);
 
   OpenBootloader_Init();
 
