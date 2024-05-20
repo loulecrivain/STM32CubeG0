@@ -24,8 +24,24 @@
 #include "iwdg_interface.h"
 #include "interfaces_conf.h"
 
+//#define HFR_USE_HAL
 #define HFR_NO_AUTOBAUDRATE
 //#define HFR_LOOPBACK_TEST_MINICOM
+
+#ifdef HFR_USE_HAL
+
+UART_HandleTypeDef huart;
+
+/* Buffer used for transmission */
+uint8_t aTxBuffer[] = "CAFEFADE\n";
+#define TXBUFFERSIZE                      (sizeof(aTxBuffer))
+
+/* Buffer used for reception */
+#define RXBUFFERSIZE                      TXBUFFERSIZE
+uint8_t aRxBuffer[RXBUFFERSIZE];
+
+#endif
+
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -39,6 +55,24 @@ static void OPENBL_USART_Init(void);
 
 static void OPENBL_USART_Init(void)
 {
+#ifdef HFR_USE_HAL
+  huart1.Instance = USART1;
+  huart.Init.BaudRate = 115200;
+  huart.Init.WordLength = UART_WORDLENGTH_9B;
+  huart.Init.StopBits = UART_STOPBITS_1;
+  huart.Init.Parity = UART_PARITY_EVEN;
+  huart.Init.Mode = UART_MODE_TX_RX;
+  huart.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart.Init.ClockPrescaler = UART_PRESCALER_DIV1;
+  huart.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+#ifdef HFR_LOOPBACK_TEST_MINICOM
+  huart.Init.WordLength = UART_WORDLENGTH_8B;
+  huart.Init.Parity = UART_PARITY_NONE;
+#endif
+  HAL_UART_Init(&huart);
+#else
   LL_USART_InitTypeDef USART_InitStruct;
 
   USART_InitStruct.PrescalerValue      = LL_USART_PRESCALER_DIV1;
@@ -70,6 +104,7 @@ static void OPENBL_USART_Init(void)
 
   LL_USART_Init(USARTx, &USART_InitStruct);
   LL_USART_Enable(USARTx);
+#endif
 }
 
 /* Exported functions --------------------------------------------------------*/
@@ -171,12 +206,16 @@ uint8_t OPENBL_USART_GetCommandOpcode(void)
   */
 uint8_t OPENBL_USART_ReadByte(void)
 {
+#if HFR_USE_HAL
+  return 0;
+#else
   while (!LL_USART_IsActiveFlag_RXNE_RXFNE(USARTx))
   {
     OPENBL_IWDG_Refresh();
   }
 
   return LL_USART_ReceiveData8(USARTx);
+#endif
 }
 
 /**
@@ -186,9 +225,13 @@ uint8_t OPENBL_USART_ReadByte(void)
   */
 void OPENBL_USART_SendByte(uint8_t Byte)
 {
+#if HFR_USE_HAL
+ HAL_UART_Transmit(&huart, (uint8_t *)aTxBuffer, TXBUFFERSIZE);
+#else
   LL_USART_TransmitData8(USARTx, (Byte & 0xFF));
 
   while (!LL_USART_IsActiveFlag_TC(USARTx))
   {
   }
+#endif
 }
