@@ -68,13 +68,14 @@ int main(void)
   /* LED init */
   BSP_LED_Init(LED2);
 
-  test_point(1);
+  test_point(3);
 
   OpenBootloader_Init();
 
   /* Infinite loop */
   while (1)
   {
+    BSP_LED_Toggle(LED2);
     OpenBootloader_ProtocolDetection();
   }
 }
