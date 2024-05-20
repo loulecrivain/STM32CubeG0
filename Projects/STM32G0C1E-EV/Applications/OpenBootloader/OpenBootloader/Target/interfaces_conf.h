@@ -23,12 +23,16 @@
 #define MEMORIES_SUPPORTED                7U
 
 /* ------------------------- Definitions for USART -------------------------- */
-#define USARTx                            USART1
 
-#define USARTx_TX_PIN                     GPIO_PIN_9
+#define USARTx_GPIO_CLK_ENABLE __HAL_RCC_GPIOA_CLK_ENABLE
+#define USARTx_CLK_ENABLE __HAL_RCC_USART2_CLK_ENABLE
+
+#define USARTx                            USART2
+
+#define USARTx_TX_PIN                     GPIO_PIN_2
 #define USARTx_TX_GPIO_PORT               GPIOA
-#define USARTx_RX_PIN                     GPIO_PIN_10
+#define USARTx_RX_PIN                     GPIO_PIN_15
 #define USARTx_RX_GPIO_PORT               GPIOA
-#define USARTx_ALTERNATE                  GPIO_AF1_USART1
+#define USARTx_ALTERNATE                  GPIO_AF1_USART2
 
 #endif /* INTERFACES_CONF_H */

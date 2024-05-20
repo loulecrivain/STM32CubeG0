@@ -84,10 +84,10 @@ void OPENBL_USART_Configuration(void)
 
   /* Enable all resources clocks --------------------------------------------*/
   /* Enable used GPIOx clocks */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
+  USARTx_GPIO_CLK_ENABLE();
 
   /* Enable USART clock */
-  __HAL_RCC_USART1_CLK_ENABLE();
+  USARTx_CLK_ENABLE();
 
   /* USARTx pins configuration -----------------------------------------------*/
 
