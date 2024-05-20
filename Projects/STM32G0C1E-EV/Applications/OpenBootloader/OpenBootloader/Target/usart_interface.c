@@ -24,6 +24,7 @@
 #include "iwdg_interface.h"
 #include "interfaces_conf.h"
 
+#define HFR_NO_AUTOBAUDRATE
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -47,12 +48,14 @@ static void OPENBL_USART_Init(void)
   USART_InitStruct.TransferDirection   = LL_USART_DIRECTION_TX_RX;
   USART_InitStruct.OverSampling        = LL_USART_OVERSAMPLING_16;
 
+#ifndef HFR_NO_AUTOBAUDRATE
   if (IS_USART_AUTOBAUDRATE_DETECTION_INSTANCE(USARTx))
   {
     LL_USART_EnableAutoBaudRate(USARTx);
     LL_USART_SetAutoBaudRateMode(USARTx, LL_USART_AUTOBAUD_DETECT_ON_7F_FRAME);
   }
   else
+#endif
   {
     LL_USART_DisableAutoBaudRate(USARTx);
     USART_InitStruct.BaudRate = 115200;
