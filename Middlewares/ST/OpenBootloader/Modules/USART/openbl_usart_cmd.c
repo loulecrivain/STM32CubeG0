@@ -167,6 +167,8 @@ static void OPENBL_USART_GetID(void)
   OPENBL_USART_SendByte(ACK_BYTE);
 }
 
+void test_point(unsigned int nb);
+
 /**
  * @brief  This function is used to read memory from the device.
  * @retval None.
@@ -634,6 +636,7 @@ static uint8_t OPENBL_USART_GetAddress(uint32_t *Address)
   /* Check the integrity of received data */
   if (OPENBL_USART_ReadByte() != xor)
   {
+    test_point(3);
     status = NACK_BYTE;
   }
   else
@@ -643,6 +646,7 @@ static uint8_t OPENBL_USART_GetAddress(uint32_t *Address)
     /* Check if received address is valid or not */
     if (OPENBL_MEM_GetAddressArea(*Address) == AREA_ERROR)
     {
+      test_point(4);
       status = NACK_BYTE;
     }
     else
