@@ -103,10 +103,14 @@ uint8_t OPENBL_USART_ProtocolDetection(void)
   uint8_t detected;
 
   /* Check if the USARTx is addressed */
-  if (((USARTx->ISR & LL_USART_ISR_ABRF) != 0) && ((USARTx->ISR & LL_USART_ISR_ABRE) == 0))
+//HFR KO...  if (((USARTx->ISR & LL_USART_ISR_ABRF) != 0) && ((USARTx->ISR & LL_USART_ISR_ABRE) == 0))
+  rx = OPENBL_USART_ReadByte();
+  if (rx)
   {
+ //   test_point(5);
+
     /* Read byte in order to flush the 0x7F synchronization byte */
-    OPENBL_USART_ReadByte();
+//    OPENBL_USART_ReadByte();
 
     /* Acknowledge the host */
     OPENBL_USART_SendByte(ACK_BYTE);
