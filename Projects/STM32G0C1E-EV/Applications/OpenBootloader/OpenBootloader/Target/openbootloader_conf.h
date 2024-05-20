@@ -37,8 +37,9 @@
 #define RAM_START_ADDRESS                 SRAM_BASE
 #define RAM_END_ADDRESS                   (SRAM_BASE + (8 * 1024))   /* Size of SRAM 8kB */
 
-#define OB_START_ADDRESS                  0x1FFF7800U                /* Option bytes registers address */
-#define OB_END_ADDRESS                    0x1FFF787FU                /* Option bytes end address (128 bytes) */
+//#define OB_START_ADDRESS                  0x1FFF7800U                /* Option bytes registers address */
+#define OB_START_ADDRESS                  0x1FFF7700U                /* Option bytes registers address */
+#define OB_END_ADDRESS                    0x1FFF7833U                /* Option bytes end address (52 bytes) */
 
 #define OTP_START_ADDRESS                 0x1FFF7000U                   /* OTP registers address */
 #define OTP_END_ADDRESS                   0x1FFF74FFU                   /* OTP end address (1024 bytes) */
@@ -50,7 +51,8 @@
 #define ICP2_END_ADDRESS                  0x1FFFEFFFU                  /* System memory registers end address */
 
 #define EB_START_ADDRESS                  0x1FFF7500U                /* engi bytes start address */
-#define EB_END_ADDRESS                    0x1FFF753FU                /* engi bytes end address  */
+//#define EB_END_ADDRESS                  0x1FFF753FU                /* engi bytes end address  */
+#define EB_END_ADDRESS                    0x1FFF7FFFU                /* engi bytes end address  */
 
 #define OPENBL_RAM_SIZE                   0x00003000U               /* RAM used by the Open Bootloader */
 
