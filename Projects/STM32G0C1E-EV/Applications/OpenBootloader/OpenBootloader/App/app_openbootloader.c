@@ -20,9 +20,6 @@
 #include "main.h"
 #include "app_openbootloader.h"
 #include "usart_interface.h"
-#include "fdcan_interface.h"
-#include "i2c_interface.h"
-#include "usb_interface.h"
 #include "flash_interface.h"
 #include "ram_interface.h"
 #include "optionbytes_interface.h"
@@ -31,9 +28,6 @@
 #include "engibytes_interface.h"
 #include "systemmemory_interface.h"
 #include "openbl_usart_cmd.h"
-#include "openbl_fdcan_cmd.h"
-#include "openbl_i2c_cmd.h"
-#include "openbl_usb_cmd.h"
 #include "openbl_core.h"
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,9 +35,6 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 static OPENBL_HandleTypeDef USART_Handle;
-static OPENBL_HandleTypeDef FDCAN_Handle;
-static OPENBL_HandleTypeDef I2C_Handle;
-static OPENBL_HandleTypeDef USB_Handle;
 static OPENBL_HandleTypeDef IWDG_Handle;
 
 static OPENBL_OpsTypeDef USART_Ops =
@@ -53,33 +44,6 @@ static OPENBL_OpsTypeDef USART_Ops =
   OPENBL_USART_ProtocolDetection,
   OPENBL_USART_GetCommandOpcode,
   OPENBL_USART_SendByte
-};
-
-static OPENBL_OpsTypeDef FDCAN_Ops =
-{
-  OPENBL_FDCAN_Configuration,
-  NULL,
-  OPENBL_FDCAN_ProtocolDetection,
-  OPENBL_FDCAN_GetCommandOpcode,
-  OPENBL_FDCAN_SendByte
-};
-
-static OPENBL_OpsTypeDef I2C_Ops =
-{
-  OPENBL_I2C_Configuration,
-  NULL,
-  OPENBL_I2C_ProtocolDetection,
-  OPENBL_I2C_GetCommandOpcode,
-  OPENBL_I2C_SendAcknowledgeByte
-};
-
-static OPENBL_OpsTypeDef USB_Ops =
-{
-  OPENBL_USB_Configuration,
-  NULL,
-  OPENBL_USB_ProtocolDetection,
-  NULL,
-  NULL
 };
 
 static OPENBL_OpsTypeDef IWDG_Ops =
@@ -107,22 +71,6 @@ void OpenBootloader_Init(void)
 
   OPENBL_RegisterInterface(&USART_Handle);
 
-  /* Register FDCAN interfaces */
-  FDCAN_Handle.p_Ops = &FDCAN_Ops;
-  FDCAN_Handle.p_Cmd = OPENBL_FDCAN_GetCommandsList();
-
-  OPENBL_RegisterInterface(&FDCAN_Handle);
-
-  /* Register I2C interfaces */
-  I2C_Handle.p_Ops = &I2C_Ops;
-  I2C_Handle.p_Cmd = OPENBL_I2C_GetCommandsList();
-
-  OPENBL_RegisterInterface(&I2C_Handle);
-
-  /* Register USB interfaces */
-  USB_Handle.p_Ops = &USB_Ops;
-
-  OPENBL_RegisterInterface(&USB_Handle);
 
   /* Register IWDG interfaces */
   IWDG_Handle.p_Ops = &IWDG_Ops;

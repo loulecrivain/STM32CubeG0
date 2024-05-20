@@ -28,14 +28,14 @@
 
 /* -------------------------------- Device ID ------------------------------- */
 #define DEVICE_ID_MSB                     0x04              /* MSB byte of device ID */
-#define DEVICE_ID_LSB                     0x67              /* LSB byte of device ID */
+#define DEVICE_ID_LSB                     0x66              /* LSB byte of device ID */
 
 /* -------------------------- Definitions for Memories ---------------------- */
 #define FLASH_START_ADDRESS               FLASH_BASE
-#define FLASH_END_ADDRESS                 (FLASH_BASE + (512 * 1024))
+#define FLASH_END_ADDRESS                 (FLASH_BASE + (64 * 1024)) /* Size of FLASH 64kB */
 
 #define RAM_START_ADDRESS                 SRAM_BASE
-#define RAM_END_ADDRESS                   (SRAM_BASE + (128 * 1024))   /* Size of SRAM 128kB */
+#define RAM_END_ADDRESS                   (SRAM_BASE + (8 * 1024))   /* Size of SRAM 8kB */
 
 #define OB_START_ADDRESS                  0x1FFF7800U                /* Option bytes registers address */
 #define OB_END_ADDRESS                    0x1FFF787FU                /* Option bytes end address (128 bytes) */
@@ -71,7 +71,7 @@
 #define FLASH_BANK1_ERASE                 0xFFFE
 #define FLASH_BANK2_ERASE                 0xFFFD
 
-#define INTERFACES_SUPPORTED              6U
+#define INTERFACES_SUPPORTED              3U
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
