@@ -25,6 +25,8 @@
 #include "interfaces_conf.h"
 
 #define HFR_NO_AUTOBAUDRATE
+//#define HFR_LOOPBACK_TEST_MINICOM
+
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -47,6 +49,11 @@ static void OPENBL_USART_Init(void)
   USART_InitStruct.HardwareFlowControl = LL_USART_HWCONTROL_NONE;
   USART_InitStruct.TransferDirection   = LL_USART_DIRECTION_TX_RX;
   USART_InitStruct.OverSampling        = LL_USART_OVERSAMPLING_16;
+#ifdef HFR_LOOPBACK_TEST_MINICOM
+  USART_InitStruct.DataWidth           = LL_USART_DATAWIDTH_8B;
+  USART_InitStruct.Parity              = LL_USART_PARITY_NONE;
+#endif
+
 
 #ifndef HFR_NO_AUTOBAUDRATE
   if (IS_USART_AUTOBAUDRATE_DETECTION_INSTANCE(USARTx))
@@ -104,6 +111,12 @@ void OPENBL_USART_Configuration(void)
 uint8_t OPENBL_USART_ProtocolDetection(void)
 {
   uint8_t detected;
+  uint8_t rx;
+
+#ifdef HFR_LOOPBACK_TEST_MINICOM
+  rx = OPENBL_USART_ReadByte();
+  OPENBL_USART_SendByte(rx);
+#endif
 
   /* Check if the USARTx is addressed */
 //HFR KO...  if (((USARTx->ISR & LL_USART_ISR_ABRF) != 0) && ((USARTx->ISR & LL_USART_ISR_ABRE) == 0))
