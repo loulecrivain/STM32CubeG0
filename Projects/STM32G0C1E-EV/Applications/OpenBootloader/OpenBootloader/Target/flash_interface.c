@@ -203,11 +203,13 @@ void OPENBL_FLASH_SetReadOutProtectionLevel(uint32_t Level)
       flash_ob.PCROP1AEndAddr = 0x08000000U;
       /* Change PCROP1 registers */
       HAL_FLASHEx_OBProgram(&flash_ob);
+#if defined(FLASH_DBANK_SUPPORT)
       flash_ob.PCROPConfig = FLASH_BANK_2;
       flash_ob.PCROP2AStartAddr = 0x08047FFFU;
       flash_ob.PCROP2AEndAddr = 0x08040000U;
       /* Change PCROP2 registers */
       HAL_FLASHEx_OBProgram(&flash_ob);
+#endif
     }
   }
 }
@@ -275,10 +277,12 @@ ErrorStatus OPENBL_FLASH_MassErase(uint8_t *p_Data, uint32_t DataLength)
     {
       erase_init_struct.Banks = FLASH_BANK_1;
     }
+#if defined(FLASH_DBANK_SUPPORT)
     else if (bank_option == FLASH_BANK2_ERASE)
     {
       erase_init_struct.Banks = FLASH_BANK_2;
     }
+#endif
     else
     {
       status = ERROR;
@@ -350,7 +354,9 @@ ErrorStatus OPENBL_FLASH_Erase(uint8_t *p_Data, uint32_t DataLength)
     }
     else if (erase_init_struct.Page <= 255)
     {
+#if defined(FLASH_DBANK_SUPPORT)
       erase_init_struct.Banks = FLASH_BANK_2;
+#endif
     }
     else
     {
@@ -474,6 +480,7 @@ static ErrorStatus OPENBL_FLASH_EnableWriteProtection(uint8_t *ListOfPages, uint
     HAL_FLASHEx_OBProgram(&flash_ob);
   }
 
+#if defined(FLASH_DBANK_SUPPORT)
   /* Write protection of bank 2 area WRPB 1 area */
   if (Length >= 6)
   {
@@ -499,7 +506,7 @@ static ErrorStatus OPENBL_FLASH_EnableWriteProtection(uint8_t *ListOfPages, uint
 
     HAL_FLASHEx_OBProgram(&flash_ob);
   }
-
+#endif
   return status;
 }
 
@@ -535,6 +542,7 @@ static ErrorStatus OPENBL_FLASH_DisableWriteProtection(void)
 
   HAL_FLASHEx_OBProgram(&flash_ob);
 
+#if defined(FLASH_DBANK_SUPPORT)
   /* Disable write protection of bank 2 area WRPB 1 area */
   flash_ob.WRPArea        = OB_WRPAREA_ZONE2_A;
   flash_ob.WRPStartOffset = wrp_start_offset;
@@ -548,6 +556,7 @@ static ErrorStatus OPENBL_FLASH_DisableWriteProtection(void)
   flash_ob.WRPEndOffset   = wrp_end_offset;
 
   HAL_FLASHEx_OBProgram(&flash_ob);
+#endif
 
   return status;
 }
