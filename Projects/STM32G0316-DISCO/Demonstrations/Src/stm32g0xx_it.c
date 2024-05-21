@@ -96,42 +96,4 @@ void SysTick_Handler (void)
   HAL_IncTick();
 }
  
-/**
-  * @}
-  */
 
-
-/**
-  * @brief  This function handles RTC & TAMP interrupt request.
-  * @param  None
-  * @retval None
-  */
-void RTC_TAMP_IRQHandler(void)
-{
-  HAL_RTCEx_WakeUpTimerIRQHandler(&RtcHandle);
-}
-
-
-/**
-  * @brief  This function handles External lines 0_1 interrupt request.
-  * @param  None
-  * @retval None
-  */
-void EXTI0_1_IRQHandler(void)
-{
-  HAL_GPIO_EXTI_IRQHandler(ButtonPin);
-}
-
-/**
-  * @brief  This function handles External lines 2_3 interrupt request.
-  * @param  None
-  * @retval None
-  */
-void EXTI2_3_IRQHandler(void)
-{
-  HAL_GPIO_EXTI_IRQHandler(ButtonPin);
-}
-
-/**
-  * @}
-  */
