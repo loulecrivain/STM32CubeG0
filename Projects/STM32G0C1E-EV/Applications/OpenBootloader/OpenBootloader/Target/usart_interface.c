@@ -23,6 +23,7 @@
 #include "usart_interface.h"
 #include "iwdg_interface.h"
 #include "interfaces_conf.h"
+#include "stm32g0xx_ll_system.h"
 
 #define HFR_NO_AUTOBAUDRATE
 //#define HFR_LOOPBACK_TEST_MINICOM
@@ -100,6 +101,9 @@ void OPENBL_USART_Configuration(void)
 
   GPIO_InitStruct.Pin = USARTx_RX_PIN;
   HAL_GPIO_Init(USARTx_RX_GPIO_PORT, &GPIO_InitStruct);
+
+  USARTx_TX_PIN_REMAP();
+  USARTx_RX_PIN_REMAP();
 
   OPENBL_USART_Init();
 }
