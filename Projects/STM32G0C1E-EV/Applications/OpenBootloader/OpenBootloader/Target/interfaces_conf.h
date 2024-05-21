@@ -29,8 +29,13 @@
 
 #define USARTx_TX_PIN                     GPIO_PIN_9
 #define USARTx_TX_GPIO_PORT               GPIOA
+#define USARTx_TX_PIN_REMAP(void) LL_SYSCFG_EnablePinRemap(LL_SYSCFG_PIN_RMP_PA11)
+
 #define USARTx_RX_PIN                     GPIO_PIN_10
 #define USARTx_RX_GPIO_PORT               GPIOA
+#define USARTx_RX_PIN_REMAP(void) LL_SYSCFG_EnablePinRemap(LL_SYSCFG_PIN_RMP_PA12)
+
 #define USARTx_ALTERNATE                  GPIO_AF1_USART1
+
 
 #endif /* INTERFACES_CONF_H */
