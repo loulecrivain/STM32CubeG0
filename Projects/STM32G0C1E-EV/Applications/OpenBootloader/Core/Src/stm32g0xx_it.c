@@ -72,3 +72,13 @@ void SysTick_Handler(void)
   HAL_IncTick();
 }
 
+/******************************************************************************/
+/* STM32G0xx Peripheral Interrupt Handlers                                    */
+/******************************************************************************/
+/**
+  * @brief This function handles USB FS global interrupt / USB FS wake-up interrupt through EXTI line 34.
+  */
+void USB_UCPD1_2_IRQHandler(void)
+{
+  HAL_PCD_IRQHandler(&hpcd);
+}

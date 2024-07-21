@@ -60,7 +60,6 @@ extern "C" {
 /* #define HAL_WWDG_MODULE_ENABLED   */
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_EXTI_MODULE_ENABLED
-#define HAL_IWDG_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
 #define HAL_RCC_MODULE_ENABLED
 #define HAL_FLASH_MODULE_ENABLED
@@ -71,7 +70,7 @@ extern "C" {
 #define HAL_PCD_MODULE_ENABLED
 #define HAL_IWDG_MODULE_ENABLED
 #define HAL_HCD_MODULE_ENABLED
-
+#define HAL_FDCAN_MODULE_ENABLED
 
 /* ########################## Register Callbacks selection ############################## */
 /**
@@ -82,6 +81,7 @@ extern "C" {
 #define USE_HAL_COMP_REGISTER_CALLBACKS   0u
 #define USE_HAL_CRYP_REGISTER_CALLBACKS   0u
 #define USE_HAL_DAC_REGISTER_CALLBACKS    0u
+#define USE_HAL_FDCAN_REGISTER_CALLBACKS  0u
 #define USE_HAL_HCD_REGISTER_CALLBACKS    0u
 #define USE_HAL_I2C_REGISTER_CALLBACKS    0u
 #define USE_HAL_I2S_REGISTER_CALLBACKS    0u

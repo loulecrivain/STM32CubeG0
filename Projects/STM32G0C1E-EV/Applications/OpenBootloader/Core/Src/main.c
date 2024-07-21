@@ -124,6 +124,22 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
+  /* Configures CRS  */
+  __HAL_RCC_CRS_CLK_ENABLE();
+  RCC_CRSInitStruct.Prescaler = RCC_CRS_SYNC_DIV1;
+  RCC_CRSInitStruct.Source = RCC_CRS_SYNC_SOURCE_USB;
+  RCC_CRSInitStruct.Polarity = RCC_CRS_SYNC_POLARITY_RISING;
+  RCC_CRSInitStruct.ReloadValue = __HAL_RCC_CRS_RELOADVALUE_CALCULATE(48000000, 1000);
+  RCC_CRSInitStruct.ErrorLimitValue = 34;
+  RCC_CRSInitStruct.HSI48CalibrationValue = 32;
+
+  /* Set the TRIM[5:0] to the default value */
+  RCC_CRSInitStruct.HSI48CalibrationValue = RCC_CRS_HSI48CALIBRATION_DEFAULT;
+  LL_CRS_SetHSI48SmoothTrimming(LL_CRS_HSI48CALIBRATION_DEFAULT);
+  LL_CRS_EnableAutoTrimming();
+
+  HAL_RCCEx_CRSConfig(&RCC_CRSInitStruct);
 }
 
 void System_DeInit(void)
