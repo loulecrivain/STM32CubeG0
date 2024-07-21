@@ -36,7 +36,6 @@ void Error_Handler(void);
 void System_DeInit(void);
 
 /* Private defines -----------------------------------------------------------*/
-void test_point(unsigned int nb);
 
 
 #ifdef __cplusplus
